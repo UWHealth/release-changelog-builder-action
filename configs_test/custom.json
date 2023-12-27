@@ -1,0 +1,87 @@
+{
+  "template": "**Previous Release:** ${{FROM_TAG}} - ${{RELEASE_DIFF}}\n- **Changed Files:** ${{CHANGED_FILES}}\n- **New Lines:** ${{ADDITIONS}}\n- **Deleted Lines:** ${{DELETIONS}}\n- **Changed Lines:** ${{CHANGES}}\n\n# Changes\n\n${{CHANGELOG}}",
+  "sort": {
+    "order": "DESC",
+    "on_property": "mergedAt"
+  },
+  "tag_resolver": {
+    "filter": {
+      "pattern": "v[\\d]+\\.[\\d]+\\.[\\d]+"
+    }
+  },
+  "categories": [
+    {
+      "title": "## 🚨  Breaking",
+      "labels": [
+        "!",
+        "`",
+        "break",
+        "breaking",
+        "Break",
+        "Breaking"
+      ]
+    },
+    {
+      "title": "## 🔥 Hot",
+      "labels": [
+        "hot",
+        "Hot"
+      ]
+    },
+    {
+      "title": "## 🚧 Content Model Change",
+      "labels": [
+        "content model change"
+      ]
+    },
+    {
+      "title": "## 🚀 Enhancements",
+      "labels": [
+        "feat",
+        "Feat",
+        "enhancement"
+      ]
+    },
+    {
+      "title": "## 🐛 Defects",
+      "labels": [
+        "fix",
+        "Fix",
+        "bug"
+      ]
+    },
+    {
+      "title": "## 🌲 Dependencies",
+      "labels": [
+        "dependencies"
+      ]
+    },
+    {
+      "title": "## 📦 Uncategorized",
+      "labels": []
+    }
+  ],
+  "label_extractor": [
+    {
+      "pattern": "(\\w+)[:\\(].*",
+      "target": "$1",
+      "on_property": "title"
+    },
+    {
+      "pattern": ".*(`).*",
+      "target": "$1",
+      "on_property": "title"
+    },
+    {
+      "pattern": "(\\w+)\\(([Hh]ot)\\)[:\\(].*",
+      "target": "$2",
+      "on_property": "title"
+    }
+
+  ],
+  "pr_template": "- ${{TITLE}} - (#${{NUMBER}}) -- ${{APPROVERS}} --- ${{URL}}",
+  "base_branches": [
+    "develop"
+  ],
+  "outputFile": "CHANGELOG.md"
+}
