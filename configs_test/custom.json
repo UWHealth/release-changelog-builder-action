@@ -1,17 +1,28 @@
 {
-  "template": "**Previous Release:** ${{FROM_TAG}} - ${{RELEASE_DIFF}}\n- **Changed Files:** ${{CHANGED_FILES}}\n- **New Lines:** ${{ADDITIONS}}\n- **Deleted Lines:** ${{DELETIONS}}\n- **Changed Lines:** ${{CHANGES}}\n\n# Changes\n\n${{CHANGELOG}}",
+  "template": "<details><summary><strong>Stats from previous release: ${{FROM_TAG}}, #{{CATEGORIZED_COUNT}} total pull requests</strong></summary><p>\n\n**Compare**: ${{RELEASE_DIFF}}<br/>**Changed Files:** ${{CHANGED_FILES}}<br/>**New Lines:** ${{ADDITIONS}}<br/>**Deleted Lines:** ${{DELETIONS}}<br/>**Changed Lines:** ${{CHANGES}}</p></details>\n\n# Changes\n\n${{CHANGELOG}}",
   "sort": {
     "order": "DESC",
     "on_property": "mergedAt"
   },
+  "pr_template": "<details><summary><strong>${{TITLE}} <a href=\"${{URL}}\">(#${{NUMBER}})</a></strong></summary><p>\n\nStarted by: @#{{AUTHOR}}<br/>Approvers: #{{APPROVERS_LIST}}<br/></p><blockquote><details><summary>ℹ PR Details</summary>\n\n#{{BODY}}</blockquote></details></details>",
   "tag_resolver": {
     "filter": {
       "pattern": "v[\\d]+\\.[\\d]+\\.[\\d]+"
     }
   },
+  "custom_placeholders": [
+    {
+      "name": "APPROVERS_LIST",
+      "source": "APPROVERS",
+      "transformer": {
+        "pattern": "([^,\\s][^,]*[^,\\s]*)",
+        "target": "@$1"
+      }
+    }
+  ],
   "categories": [
     {
-      "title": "## 🚨  Breaking",
+      "title": "### 💥 Breaking",
       "labels": [
         "!",
         "`",
@@ -22,28 +33,30 @@
       ]
     },
     {
-      "title": "## 🔥 Hot",
+      "title": "### 🔥 Hot",
       "labels": [
         "hot",
         "Hot"
       ]
     },
     {
-      "title": "## 🚧 Content Model Change",
+      "title": "### 🧬 Content Model Changes",
       "labels": [
-        "content model change"
+        "content model change",
+        "functions"
       ]
     },
     {
-      "title": "## 🚀 Enhancements",
+      "title": "### 🚀 Enhancements",
       "labels": [
         "feat",
         "Feat",
-        "enhancement"
+        "enhancement",
+        "functions"
       ]
     },
     {
-      "title": "## 🐛 Defects",
+      "title": "### 🐛 Defects",
       "labels": [
         "fix",
         "Fix",
@@ -51,13 +64,13 @@
       ]
     },
     {
-      "title": "## 🌲 Dependencies",
+      "title": "### 📦 Dependencies",
       "labels": [
         "dependencies"
       ]
     },
     {
-      "title": "## 📦 Uncategorized",
+      "title": "### 💬 Uncategorized",
       "labels": []
     }
   ],
@@ -79,7 +92,6 @@
     }
 
   ],
-  "pr_template": "- ${{TITLE}} - (#${{NUMBER}}) -- ${{APPROVERS}} --- ${{URL}}",
   "base_branches": [
     "develop"
   ],
